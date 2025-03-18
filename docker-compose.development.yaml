@@ -1,4 +1,4 @@
-version: '3'
+version: '3.8'
 services:
   app-development:
     restart: unless-stopped
@@ -12,4 +12,10 @@ services:
       - 3000:3000
     volumes:
       - ./:/app
+  database:
+    extends:
+      file: docker-compose.database.yaml
+      service: database      
+volumes:
+  mysql_data:       
   
