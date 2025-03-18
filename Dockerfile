@@ -13,13 +13,7 @@ RUN pnpm build
 
 FROM install AS development
 WORKDIR /app
-COPY ./app ./app
-COPY ./components ./components
-COPY ./hooks ./hooks
-COPY ./public ./public
-COPY ./styles ./styles
-COPY ./types ./types
-COPY ./utils ./utils
+COPY . .
 CMD ["pnpm","dev"]
 
 FROM base AS production
