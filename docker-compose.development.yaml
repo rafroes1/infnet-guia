@@ -1,0 +1,12 @@
+services:
+  app-development:
+    restart: unless-stopped
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: development
+    container_name: "infnet-guia-website-development"
+    stdin_open: true
+    ports:
+      - 3000:3000
+  

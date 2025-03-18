@@ -1,0 +1,11 @@
+services:
+  app:
+    restart: unless-stopped
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: "infnet-guia-website"
+    stdin_open: true
+    ports:
+      - 3000:3000
+  
