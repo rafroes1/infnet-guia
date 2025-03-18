@@ -22,19 +22,20 @@ COPY ./types ./types
 COPY ./utils ./utils
 CMD ["pnpm","dev"]
 
-FROM node:18-alpine AS production
+FROM base AS production
 WORKDIR /app
 
 ENV NODE_ENV production
 RUN addgroup --system --gid 1001 nodejs
 RUN adduser --system --uid 1001 nextjs
 
-COPY --from=build /app/dist/standalone ./
 COPY --from=build /app/next.config.mjs ./next.config.mjs
 COPY --from=build /app/public ./public
+COPY --from=build /app/dist ./dist
 COPY --from=install /app/node_modules ./node_modules
+COPY --from=install /app/package.json ./package.json
 
 USER nextjs
 EXPOSE 3000
-CMD ["node", "server.js"]
+CMD ["pnpm", "start"]
 
