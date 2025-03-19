@@ -1,0 +1,13 @@
+pessoas:
+  - nome: maria
+    idade: 21
+    estado: RJ
+    ativo: true
+  - nome: pedro
+    idade: 12
+    estado: SP
+    ativo: false
+application:
+  nome: cadastro de pessoas
+  versao: '1.0.0'
+  
