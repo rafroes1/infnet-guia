@@ -4,8 +4,8 @@ RUN npm i -g pnpm
 
 FROM base AS install
 WORKDIR /app
-COPY package.json pnpm-lock.yaml ./
-RUN pnpm install --frozen-lockfile
+COPY package.json ./
+RUN pnpm install 
 
 FROM install AS build
 COPY . .
