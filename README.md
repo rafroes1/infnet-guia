@@ -19,4 +19,8 @@ docker-compose up
 docker-compose up -f docker-compose.development.yaml
 ```
 
-Testando a esteira do github actions
+### Projeto é um fork do colega de classe com ajustes no dockerfile para adicionar o HEALTHCHECK que simula o readness do k8 no docker swarm.
+
+### Deployment file também foi adicionado e ajustado para que a esteira rode corretamente no github action.
+
+### Toda e qualquer outra explicação do projeto se encontra no PDF entregável do projeto.
