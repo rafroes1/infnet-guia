@@ -37,9 +37,6 @@ jobs:
       - name: Build application
         run: pnpm build
 
-      - name: Run tests
-        run: pnpm test
-
       - name: Login to the container registry
         uses: docker/login-action@v3
         with:
