@@ -1,4 +1,4 @@
-name: Deploy to Docker Swarm #ponto 4 do trabalho
+name: Deploy to Docker Swarm
 
 on:
   push:
@@ -8,7 +8,7 @@ on:
 
 env:
   REGISTRY: ghcr.io
-  IMAGE_NAME: ${{ github.repository }}
+  IMAGE_NAME: rafafroes01/trabalho-infnet
 
 jobs:
   build-and-deploy:
