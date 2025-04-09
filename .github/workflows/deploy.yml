@@ -1,4 +1,4 @@
-name: Deploy to Docker Swarm
+name: Deploy pipeline
 
 on:
   push:

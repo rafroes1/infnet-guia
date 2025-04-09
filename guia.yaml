@@ -1,0 +1,91 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: guia-app
+spec:
+  replicas: 4
+  selector:
+    matchLabels:
+      app: guia-app
+  template:
+    metadata:
+      labels:
+        app: guia-app
+    spec:
+      containers:
+        - name: guia-app
+          image: rafafroes01/trabalho-infnet:latest
+          ports:
+            - containerPort: 3000
+          livenessProbe:
+            httpGet:
+              path: / 
+              port: 3000
+            initialDelaySeconds: 10
+            periodSeconds: 15
+--- # guia app service
+apiVersion: v1
+kind: Service
+metadata:
+  name: guia-app-service
+spec:
+  type: NodePort
+  selector:
+    app: guia-app
+  ports:
+    - protocol: TCP
+      port: 3000
+      targetPort: 3000
+      nodePort: 30080
+--- # bando de dados mysql pod
+apiVersion: v1
+kind: Pod
+metadata:
+  name: mysql
+  labels:
+    app: mysql
+spec:
+  containers:
+    - name: mysql
+      image: mysql:8.0
+      ports:
+        - containerPort: 3306
+      env:
+        - name: MYSQL_ROOT_PASSWORD
+          value: root
+        - name: MYSQL_DATABASE
+          value: project-database
+        - name: MYSQL_USER
+          value: user
+        - name: MYSQL_PASSWORD
+          value: password
+      volumeMounts:
+        - name: mysql-storage
+          mountPath: /var/lib/mysql
+  volumes:
+    - name: mysql-storage
+      persistentVolumeClaim:
+        claimName: mysql-pvc
+--- # bando de dados mysql pvc
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: mysql-pvc
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+--- # bando de dados mysql service
+apiVersion: v1
+kind: Service
+metadata:
+  name: mysql-service
+spec:
+  selector:
+    app: mysql
+  ports:
+    - port: 3306        
+      targetPort: 3306  
+  type: ClusterIP 
